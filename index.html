@@ -58,7 +58,7 @@
                 $('#message').html('<div class="alert alert-success" role="alert">File converted and uploaded successfully.</div>');
               },
               error: function(error) {
-                var message = error.responseJSON ? error.responseJSON.error : 'An error occurred. mai aaunga';
+                var message = error.responseJSON ? error.responseJSON.error : 'Something went wrong';
                 $('#message').html('<div class="alert alert-danger" role="alert">' + message + '</div>');
                 console.log(error);
               }
