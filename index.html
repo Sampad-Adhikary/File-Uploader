@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Converter</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h1 class="heading-txt" data-text="Upload&nbsp;your&nbsp;word&nbsp;file&nbsp;Here">Upload Your Word File Here</h1>
+        <div id="message" class="mb-3"></div>
+        <form class="form" id="uploadForm" enctype="multipart/form-data" method="post">
+            <div class="container-f">
+                    <img src="system-outline-49-upload-file.gif" alt="" srcset="" width="100px">
+                  <div class="text-center">
+                    <label for="file">Select Word File (.docx)</label>
+                    <input id="inp-file" type="file" class="form-control-file file" id="file" name="file" accept=".docx" required>
+                    <small class="form-text">File size should be less than 5 MB.</small>
+                </div>
+                <button type="submit" class="submit-btn">Convert to PDF</button>    
+            </div>          
+        </form>
+    </div>
+    <div class="footer">
+        <p class="heading-2">Designed and developed by <a class="a-tg" href="https://sampadadhikary.cyclic.app/" target="_blank">Sampad Adhikary</a></p>
+        <a href="https://www.linkedin.com/in/sampad-adhikary-b09051196/" target="_blank"><img class="footer-icon" src="linkedin.png" alt="eth" width="30px" /></a>
+        <a href="https://github.com/Sampad-Adhikary" target="_blank"><img class="footer-icon" src="github.png" alt="eth" width="30px" /></a>
+        <a href="https://www.figma.com/@sampadadhikary" target="_blank"><img class="footer-icon" src="figma.png" alt="eth" width="30px" /></a>
+        <a href="https://sampadadhikary.cyclic.app/" target="_blank"><img class="footer-icon" src="my-logo.png" alt="eth" width="40px" /></a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+          $('#uploadForm').submit(function(event) {
+            event.preventDefault();
+            var form = $('#uploadForm')[0];
+            var formData = new FormData(form);
+      
+            $.ajax({
+              type: 'POST',
+              url: 'https://npzyb2s6b5.execute-api.eu-north-1.amazonaws.com/LambdaFunction',
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function(response) {
+                $('#message').html('<div class="alert alert-success" role="alert">File converted and uploaded successfully.</div>');
+              },
+              error: function(error) {
+                var message = error.responseJSON ? error.responseJSON.error : 'An error occurred. mai aaunga';
+                $('#message').html('<div class="alert alert-danger" role="alert">' + message + '</div>');
+                console.log(error);
+              }
+            });
+          });
+        });
+      </script>
+      
+
+      
+    
+</body>
+</html>
